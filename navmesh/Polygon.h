@@ -1,5 +1,5 @@
 //====================================
-// brief: PolygonÀà£¬´ú±íÑ°Â·¶à±ßĞÎµÄÀà£¬Ö÷ÒªÊµÏÖ¶à±ßĞÎµÄÈı½ÇÆÊ·ÖºÍÑ°Â·
+// brief: Polygonç±»ï¼Œä»£è¡¨å¯»è·¯å¤šè¾¹å½¢çš„ç±»ï¼Œä¸»è¦å®ç°å¤šè¾¹å½¢çš„ä¸‰è§’å‰–åˆ†å’Œå¯»è·¯
 // author:sunxvming@163.com
 // date:  2019-11-22
 //====================================
@@ -62,7 +62,7 @@ public:
 class Polygon
 {
 public:
-	vector<Point> points;//ÍâÎ§¶¥µã,Ë³Ê±Õë
+	vector<Point> points;//å¤–å›´é¡¶ç‚¹,é¡ºæ—¶é’ˆ
 	vector<Triangle> triangles;
 	vector<Edge> edges;
 	vector<int32_t> pointsnum;
@@ -91,7 +91,7 @@ public:
 
 	int32_t IsFrist(int32_t p) { return p == 4; }
 	int32_t FindTriangle(Point p);
-	vector<Point> FindPath(Point from, Point to, bool isturn);	//trueÊ±ÎªÖĞµãÑ°Â·£¬falseÎª¹ÕµãÑ°Â·
+	vector<Point> FindPath(Point from, Point to, bool isturn);	//trueæ—¶ä¸ºä¸­ç‚¹å¯»è·¯ï¼Œfalseä¸ºæ‹ç‚¹å¯»è·¯
 	void GenExtData();
 
 	void Save(FILE* file);

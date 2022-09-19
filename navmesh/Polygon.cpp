@@ -1,5 +1,5 @@
 //====================================
-// brief: PolygonÀà£¬´ú±íÑ°Â·¶à±ßĞÎµÄÀà£¬Ö÷ÒªÊµÏÖ¶à±ßĞÎµÄÈı½ÇÆÊ·ÖºÍÑ°Â·
+// brief: Polygonç±»ï¼Œä»£è¡¨å¯»è·¯å¤šè¾¹å½¢çš„ç±»ï¼Œä¸»è¦å®ç°å¤šè¾¹å½¢çš„ä¸‰è§’å‰–åˆ†å’Œå¯»è·¯
 // author:sunxvming@163.com
 // date:  2019-11-22
 //====================================
@@ -89,8 +89,8 @@ int32_t Polygon::CreateEdge(Hash* eindexs, int32_t triangle, int32_t p1, int32_t
 	return v;
 }
 
-//p1Î»ÓÚp2µÄÓÒ²à£¨Î»ÓÚp2µÄË³Ê±Õë·½Ïò£©
-//p2Î»ÓÚp1×ó²à£¨Î»ÓÚp1µÄÄæÊ±Õë·½Ïò£©
+//p1ä½äºp2çš„å³ä¾§ï¼ˆä½äºp2çš„é¡ºæ—¶é’ˆæ–¹å‘ï¼‰
+//p2ä½äºp1å·¦ä¾§ï¼ˆä½äºp1çš„é€†æ—¶é’ˆæ–¹å‘ï¼‰
 static inline int isclockwise(Point p1, Point p2)
 {
 	return p1.x * p2.y > p2.x* p1.y;
@@ -151,7 +151,7 @@ int32_t Polygon::FindDT(Grid* grid, int32_t p1, int32_t p2)
 					{
 						int32_t p = c.points[k];
 						Point point = GetPoint(p);
-						if (p1 != p && p2 != p && isclockwise(point2 - point1, point - point1))  // p ÒªÔÚp1p2µÄ×ó²à
+						if (p1 != p && p2 != p && isclockwise(point2 - point1, point - point1))  // p è¦åœ¨p1p2çš„å·¦ä¾§
 						{
 							bool flag = JudgeIsVisible(p1, p) && JudgeIsVisible(p2, p);
 							if (flag) {
@@ -167,7 +167,7 @@ int32_t Polygon::FindDT(Grid* grid, int32_t p1, int32_t p2)
 					}
 				}
 			}
-		//ÅĞ¶ÏÊÇ·ñÓ¦¸Ã½áÊøµ±Ç°ÌË
+		//åˆ¤æ–­æ˜¯å¦åº”è¯¥ç»“æŸå½“å‰è¶Ÿ
 		if (p3 != -1)
 		{
 			Circle c(point1, point2, GetPoint(p3));
@@ -230,11 +230,11 @@ bool Polygon::IsIntersect(int32_t edgepos, int32_t pa1, int32_t p1) {
 	return false;
 }
 
-//false´ú±ípa Óëp²»¿É¼û£¬true´ú±í¿É¼û
+//falseä»£è¡¨pa ä¸pä¸å¯è§ï¼Œtrueä»£è¡¨å¯è§
 bool Polygon::JudgeIsVisible(int pindex1, int pindex2) {
 	Point p1 = GetPoint(pindex1);
 	Point p2 = GetPoint(pindex2);
-	//¼ì²é×î´ó×îĞ¡ÖµºÏ·¨ĞÔ
+	//æ£€æŸ¥æœ€å¤§æœ€å°å€¼åˆæ³•æ€§
 	Point p0 = points[0];
 	double minx = p0.x, miny = p0.y, maxx = p0.x, maxy = p0.y;
 	for (auto it = points.cbegin() + 1; it != points.cend(); it++)
@@ -283,7 +283,7 @@ bool Polygon::JudgeIsVisible(int pindex1, int pindex2) {
 		{
 			double x3 = (i + 1) * gride + minx;
 			if (x3 > p2.x) x3 = p2.x;
-			// Á½µãÇóµÃ·½³Ì (y-y2)/(y1-y2)=(x-x2)/(x1-x2)£¬°Ñx3´úÈë¼ÆËãy3
+			// ä¸¤ç‚¹æ±‚å¾—æ–¹ç¨‹ (y-y2)/(y1-y2)=(x-x2)/(x1-x2)ï¼ŒæŠŠx3ä»£å…¥è®¡ç®—y3
 			double y3 = (p2.x - x3) * (p2.y - p1.y) / (p1.x - p2.x) + p2.y;
 
 			int cur_x = (int)((x - minx) / gride);
@@ -311,7 +311,7 @@ bool Polygon::JudgeIsVisible(int pindex1, int pindex2) {
 
 void Polygon::Delaunay()
 {
-	//¼ì²é×î´ó×îĞ¡ÖµºÏ·¨ĞÔ
+	//æ£€æŸ¥æœ€å¤§æœ€å°å€¼åˆæ³•æ€§
 	Point p0 = points[0];
 	double minx = p0.x, miny = p0.y, maxx = p0.x, maxy = p0.y;
 	for (auto it = points.cbegin() + 1; it != points.cend(); it++)
@@ -329,10 +329,10 @@ void Polygon::Delaunay()
 	int32_t xnum = (int32_t)ceil(dx / gride);
 	int32_t ynum = (int32_t)ceil(dy / gride);
 	vector<Cell> cells(xnum*ynum);
-	//°ÑµãºÍ±ß¶¼·Åµ½¸ñ×ÓÀï
+	//æŠŠç‚¹å’Œè¾¹éƒ½æ”¾åˆ°æ ¼å­é‡Œ
 	for (auto it = points.cbegin(); it != points.cend(); it++)
 	{
-		//point·Åµ½GridÀï
+		//pointæ”¾åˆ°Gridé‡Œ
 		double x = it->x;
 		double y = it->y;
 		int32_t xn = (int32_t)((x - minx) / gride);
@@ -341,14 +341,14 @@ void Polygon::Delaunay()
 		int32_t point = it - points.cbegin();
 		cells[pos].points.push_back(point);
 		
-		//edges·Åµ½GridÀï
+		//edgesæ”¾åˆ°Gridé‡Œ
 		Point p = GetPoint(point);
 		int32_t p1num = 0;
 		int32_t sum = 0;
 		for (int32_t i = 0; i < pointsnum.size(); i++) {
 			
 			sum += pointsnum[i];
-			if(point == sum-1){   //Èç¹ûÊÇ¶à±ßĞÎµÄ×îºóÒ»¸öµã
+			if(point == sum-1){   //å¦‚æœæ˜¯å¤šè¾¹å½¢çš„æœ€åä¸€ä¸ªç‚¹
 				p1num = point - (pointsnum[i] - 1);
 				break;
 			}
@@ -356,7 +356,7 @@ void Polygon::Delaunay()
 				p1num = point + 1;
 				break;
 			}
-			else if (point > sum - 1) {   //µã²»ÔÚÕâ¸ö¶à±ßĞÎÖĞ
+			else if (point > sum - 1) {   //ç‚¹ä¸åœ¨è¿™ä¸ªå¤šè¾¹å½¢ä¸­
 				continue;
 			}
 		}
@@ -386,7 +386,7 @@ void Polygon::Delaunay()
 			}
 		}
 		else {
-			//½«xÖµÆ«Ğ¡µÄ yÖµ±£´æÆğÀ´
+			//å°†xå€¼åå°çš„ yå€¼ä¿å­˜èµ·æ¥
 			double y = p.y;
 			double x = p.x;
 			int32_t cur_x = (int32_t)((x - minx) / gride);
@@ -395,7 +395,7 @@ void Polygon::Delaunay()
 			{
 				double x3 = (i + 1) * gride + minx;
 				if (x3 > p1.x) x3 = p1.x;
-				// Á½µãÇóµÃ·½³Ì (y-y2)/(y1-y2)=(x-x2)/(x1-x2)£¬°Ñx3´úÈë¼ÆËãy3
+				// ä¸¤ç‚¹æ±‚å¾—æ–¹ç¨‹ (y-y2)/(y1-y2)=(x-x2)/(x1-x2)ï¼ŒæŠŠx3ä»£å…¥è®¡ç®—y3
 				double y3 = (p.x - x3)*(p.y - p1.y) / (p1.x - p.x) + p.y;
 				int32_t next_y = (int32_t)((y3 - miny) / gride);
 				if (cur_y > next_y) {
@@ -427,9 +427,9 @@ void Polygon::Delaunay()
 	grid.xnum = xnum;
 	grid.ynum = ynum;
 
-	Hash eindexs;    //k->v (Pindex->edgesµÄindex)£¬´æ·Å×ÅÒÑ¾­´¦Àí¹ıµÄËùÓĞÈı½ÇĞÎµÄ±ß 
+	Hash eindexs;    //k->v (Pindex->edgesçš„index)ï¼Œå­˜æ”¾ç€å·²ç»å¤„ç†è¿‡çš„æ‰€æœ‰ä¸‰è§’å½¢çš„è¾¹ 
 	
-	//Hash restrains;   //°ÑËùÓĞÔ¼Êø±ß·Åµ½ÀïÃæ
+	//Hash restrains;   //æŠŠæ‰€æœ‰çº¦æŸè¾¹æ”¾åˆ°é‡Œé¢
 	for (unsigned i = 0; i < points.size(); i++)
 	{
 		int32_t num1 = i;
@@ -438,7 +438,7 @@ void Polygon::Delaunay()
 		for (int32_t i = 0; i < pointsnum.size(); i++) {
 			sum += pointsnum[i];
 
-			if (num1 == sum - 1) {  //¶à±ßĞÎµÄ×îºóÒ»¸öµã
+			if (num1 == sum - 1) {  //å¤šè¾¹å½¢çš„æœ€åä¸€ä¸ªç‚¹
 				num2 = num1 - (pointsnum[i] - 1);
 				break;
 			}
@@ -446,7 +446,7 @@ void Polygon::Delaunay()
 				num2 = num1 + 1;
 				break;
 			}
-			else if (num1 > sum - 1) {   //µã²»ÔÚÕâ¸ö¶à±ßĞÎÖĞ
+			else if (num1 > sum - 1) {   //ç‚¹ä¸åœ¨è¿™ä¸ªå¤šè¾¹å½¢ä¸­
 				continue;
 			}
 		}
@@ -484,7 +484,7 @@ void Polygon::Delaunay()
 		if (es.empty()) { 
 			break; 
 		}
-		e = *(es.end() - 1);  //³öÕ»
+		e = *(es.end() - 1);  //å‡ºæ ˆ
 		es.pop_back();
 		int32_t* points = edges[eindexs[e]].points;
 		p1 = points[0], p2 = points[1];
@@ -505,12 +505,12 @@ void Polygon::GenExtData()
 		Edge e = edges[i];
 		int32_t e0 = e.triangles[0];
 		int32_t e1 = e.triangles[1];
-		if (e0 >= 0 && e1 >= 0) {  //Ò»Ìõ±ßÓĞÁ½¸öÈı½ÇĞÎµÄ
+		if (e0 >= 0 && e1 >= 0) {  //ä¸€æ¡è¾¹æœ‰ä¸¤ä¸ªä¸‰è§’å½¢çš„
 			Triangle t0 = triangles[e0];
 			Triangle t1 = triangles[e1];
 			int32_t p0 = e.points[0], p1 = e.points[1];
-			//Ê¹ÆäÔÚµÚÒ»¸öÈı½ÇÖĞ£¬ÈÃp1Î»ÓÚp0µÄ×ó²à£¨µãµÄÎ»ÖÃ¹Ì¶¨ÆğÀ´£¬p1ÊÇ×óµã£¬p0ÊÇÓÒµã£©£¬Ê¹Ñ°Â·Ê±¹ÕµãËã·¨µÄÁ½±ß·½Ïò¶¼ÊÇÒ»ÖÂµÄ
-			//0µÄÎ»ÖÃ·ÅÓÒµã
+			//ä½¿å…¶åœ¨ç¬¬ä¸€ä¸ªä¸‰è§’ä¸­ï¼Œè®©p1ä½äºp0çš„å·¦ä¾§ï¼ˆç‚¹çš„ä½ç½®å›ºå®šèµ·æ¥ï¼Œp1æ˜¯å·¦ç‚¹ï¼Œp0æ˜¯å³ç‚¹ï¼‰ï¼Œä½¿å¯»è·¯æ—¶æ‹ç‚¹ç®—æ³•çš„ä¸¤è¾¹æ–¹å‘éƒ½æ˜¯ä¸€è‡´çš„
+			//0çš„ä½ç½®æ”¾å³ç‚¹
 			if (!isclockwise(GetPoint(p0) - t0.icenter, GetPoint(p1) - t0.icenter))
 			{
 				e.points[0] = p1;
@@ -635,7 +635,7 @@ double Polygon::Distance(Point from, int32_t edge, int32_t tindex, Point to)
 	return distance(from, ecenter) + distance(ecenter, ecenter2) + distance(ecenter2, to);
 }
 
-//trueÊ±ÎªÖĞµãÑ°Â·£¬falseÎª¹ÕµãÑ°Â·
+//trueæ—¶ä¸ºä¸­ç‚¹å¯»è·¯ï¼Œfalseä¸ºæ‹ç‚¹å¯»è·¯
 vector<Point> Polygon::FindPath(Point from, Point to, bool isturn)
 {
 	int32_t tfrom = FindTriangle(from);
@@ -667,9 +667,9 @@ vector<Point> Polygon::FindPath(Point from, Point to, bool isturn)
 		{
 			int32_t eindex = triangles[start].edges[i];
 			Edge edge = edges[eindex];
-			//ÕÒµ½·ÇÔ¼Êø±ßµÄ£¬·ÇÔ­Èı½ÇĞÎµÄÁíÍâÆäËûµÄÈı½ÇĞÎ
+			//æ‰¾åˆ°éçº¦æŸè¾¹çš„ï¼ŒéåŸä¸‰è§’å½¢çš„å¦å¤–å…¶ä»–çš„ä¸‰è§’å½¢
 			int32_t nextt = edge.triangles[0] == start ? edge.triangles[1] : edge.triangles[0];
-			if (nextt >= 0)  // ·ÇÔ¼Êø±ßµÄ
+			if (nextt >= 0)  // éçº¦æŸè¾¹çš„
 			{
 				if (nextt == tto)
 				{
@@ -709,7 +709,7 @@ vector<Point> Polygon::FindPath(Point from, Point to, bool isturn)
 	int32_t t = 0;
 	int32_t size = es.size();
 	if (isturn) {
-		//ÖĞµãÑ°Â·Ëã·¨
+		//ä¸­ç‚¹å¯»è·¯ç®—æ³•
 		for (int32_t i = 0; i < es.size(); i++) {
 			Edge e = edges[es[i]];
 			Point p1 = GetPoint(e.points[0]);
@@ -722,23 +722,23 @@ vector<Point> Polygon::FindPath(Point from, Point to, bool isturn)
 	else {
 		while (t < size)
 		{
-			Point p = *(ways.cend() - 1);  //Ñ­»·¿ªÊ¼µãÊÇÆğµã
+			Point p = *(ways.cend() - 1);  //å¾ªç¯å¼€å§‹ç‚¹æ˜¯èµ·ç‚¹
 			Edge e = edges[es[t]];
 			int ep0, ep1;
-			//ts[t]±íÊ¾µ±Ç°Òª´¦ÀíµÄÈı½Ç
-			if (ts[t] == e.triangles[0])  //ÅĞ¶ÏÊÇ·ñÊÇµÚ0¸öÈı½Ç£¬µÚ0¸öÈı½Çp1ÊÇÔÚp0×ó²àµÄ
+			//ts[t]è¡¨ç¤ºå½“å‰è¦å¤„ç†çš„ä¸‰è§’
+			if (ts[t] == e.triangles[0])  //åˆ¤æ–­æ˜¯å¦æ˜¯ç¬¬0ä¸ªä¸‰è§’ï¼Œç¬¬0ä¸ªä¸‰è§’p1æ˜¯åœ¨p0å·¦ä¾§çš„
 			{
 				ep0 = e.points[0], ep1 = e.points[1];
 			}
-			else {   //ÊÇµÚÒ»¸öÈı½ÇµÄ»°£¬p1ÔÚp0µÄÓÒ²à£¬ĞèÒª»»ÏÂË³Ğò
+			else {   //æ˜¯ç¬¬ä¸€ä¸ªä¸‰è§’çš„è¯ï¼Œp1åœ¨p0çš„å³ä¾§ï¼Œéœ€è¦æ¢ä¸‹é¡ºåº
 				ep0 = e.points[1], ep1 = e.points[0];
 			}
 
-			Point p1 = GetPoint(ep0), p2 = GetPoint(ep1);   // p1ÊÇÓÒµã£¬p2ÊÇ×óµã
-			Point line1 = p1 - p, line2 = p2 - p;           //line1ÓÒÏß£¬ line2×óÏß
+			Point p1 = GetPoint(ep0), p2 = GetPoint(ep1);   // p1æ˜¯å³ç‚¹ï¼Œp2æ˜¯å·¦ç‚¹
+			Point line1 = p1 - p, line2 = p2 - p;           //line1å³çº¿ï¼Œ line2å·¦çº¿
 			int i = t + 1;
 			int t1 = i, t2 = i;
-			//Ã¿Ò»´ÎÑ­»·¾ÍÊÇÒªÕÒµ½Ò»¸ö¹Õµã£¬È»ºóÏÂÒ»´ÎÔÙ´ÓÕâ¸ö¹ÕµãÕÒÏÂÒ»¸ö¹Õµã
+			//æ¯ä¸€æ¬¡å¾ªç¯å°±æ˜¯è¦æ‰¾åˆ°ä¸€ä¸ªæ‹ç‚¹ï¼Œç„¶åä¸‹ä¸€æ¬¡å†ä»è¿™ä¸ªæ‹ç‚¹æ‰¾ä¸‹ä¸€ä¸ªæ‹ç‚¹
 			bool haspoint = false;
 			for (; i < size; i++)
 			{
@@ -752,7 +752,7 @@ vector<Point> Polygon::FindPath(Point from, Point to, bool isturn)
 					nep0 = nxte.points[1], nep1 = nxte.points[0];
 				}
 				Point np1 = GetPoint(nep0), np2 = GetPoint(nep1);
-				if (!isclockwise(line1, np2 - p)) {//np2£¨×óµã£©²»ÔÚline1£¨ÓÒÏß£©µÄ×ó²àµÄ»°£¬Ö±½ÓÈ·¶¨p1Îª¹Õµã
+				if (!isclockwise(line1, np2 - p)) {//np2ï¼ˆå·¦ç‚¹ï¼‰ä¸åœ¨line1ï¼ˆå³çº¿ï¼‰çš„å·¦ä¾§çš„è¯ï¼Œç›´æ¥ç¡®å®šp1ä¸ºæ‹ç‚¹
 					Point pp = GetPoint(ep0);
 					p = Point(pp.x + 0, pp.y - 0);
 					ways.push_back(Point(pp.x + 0, pp.y - 0));
@@ -761,14 +761,14 @@ vector<Point> Polygon::FindPath(Point from, Point to, bool isturn)
 					haspoint = true;
 					break;
 				}
-				else if (isclockwise(line1, np1 - p)) //np1£¨ÓÒµã£©ÔÚline1£¨ÓÒÏß£©µÄ×ó²àµÄ»°£¬¸üĞÂline1
+				else if (isclockwise(line1, np1 - p)) //np1ï¼ˆå³ç‚¹ï¼‰åœ¨line1ï¼ˆå³çº¿ï¼‰çš„å·¦ä¾§çš„è¯ï¼Œæ›´æ–°line1
 				{
 					line1 = np1 - p;
 					ep0 = nep0;
 					t1 = i;
 				}
 
-				if (isclockwise(line2, np1 - p)) { //np1£¨ÓÒµã£©ÔÚline2£¨×óÏß£©µÄ×ó²àµÄ»°£¬Ö±½ÓÈ·¶¨¹Õµã
+				if (isclockwise(line2, np1 - p)) { //np1ï¼ˆå³ç‚¹ï¼‰åœ¨line2ï¼ˆå·¦çº¿ï¼‰çš„å·¦ä¾§çš„è¯ï¼Œç›´æ¥ç¡®å®šæ‹ç‚¹
 					Point pp = GetPoint(ep1);
 					p = Point(pp.x + 0, pp.y - 0);
 					ways.push_back(Point(pp.x + 0, pp.y - 0));
@@ -777,7 +777,7 @@ vector<Point> Polygon::FindPath(Point from, Point to, bool isturn)
 					haspoint = true;
 					break;
 				}
-				else if (!isclockwise(line2, np2 - p))  //np2£¨×óµã£©²»ÔÚline2£¨×óÏß£©µÄ×ó²àµÄ»°£¬¸üĞÂline2
+				else if (!isclockwise(line2, np2 - p))  //np2ï¼ˆå·¦ç‚¹ï¼‰ä¸åœ¨line2ï¼ˆå·¦çº¿ï¼‰çš„å·¦ä¾§çš„è¯ï¼Œæ›´æ–°line2
 				{
 					line2 = np2 - p;
 					ep1 = nep1;
@@ -785,19 +785,19 @@ vector<Point> Polygon::FindPath(Point from, Point to, bool isturn)
 				}
 
 			}
-			if (i >= size - 1)  //×óÏßºÍÓÒÏßÒ»Ö±¸üĞÂ¸üĞÂµ½ÁË×îºó
+			if (i >= size - 1)  //å·¦çº¿å’Œå³çº¿ä¸€ç›´æ›´æ–°æ›´æ–°åˆ°äº†æœ€å
 			{
-				if (!isclockwise(line1, to - p))  //ÖÕµãÔÚline1£¨ÓÒÏß£©ÓÒ²à
+				if (!isclockwise(line1, to - p))  //ç»ˆç‚¹åœ¨line1ï¼ˆå³çº¿ï¼‰å³ä¾§
 				{
-					ways.push_back(GetPoint(ep0));    //×óµãÎª¹Õµã
+					ways.push_back(GetPoint(ep0));    //å·¦ç‚¹ä¸ºæ‹ç‚¹
 					t = t1;
 				}
-				else if (isclockwise(line2, to - p))   //ÖÕµãÔÚline2£¨×óÏß£©×ó²à
+				else if (isclockwise(line2, to - p))   //ç»ˆç‚¹åœ¨line2ï¼ˆå·¦çº¿ï¼‰å·¦ä¾§
 				{
 					ways.push_back(GetPoint(ep1));
 					t = t2;
 				}
-				if (t >= size - 1)          // //ÖÕµãÔÚÖĞ¼ä
+				if (t >= size - 1)          // //ç»ˆç‚¹åœ¨ä¸­é—´
 				{
 					ways.push_back(to);
 				}

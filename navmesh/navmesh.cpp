@@ -1,5 +1,5 @@
 //====================================
-// brief: ³ÌĞòµÄmainÈë¿ÚÎÄ¼ş£¬µ÷ÓÃglut¿âÀ´»­¾­¹ıÈı½ÇÆÊ·ÖºóµÄ¶à±ßĞÎÍø¸ñºÍÑ°Â·µÄÂ·¾¶,Ö÷ÒªÊÇ²âÊÔPathµÄ·½·¨
+// brief: ç¨‹åºçš„mainå…¥å£æ–‡ä»¶ï¼Œè°ƒç”¨glutåº“æ¥ç”»ç»è¿‡ä¸‰è§’å‰–åˆ†åçš„å¤šè¾¹å½¢ç½‘æ ¼å’Œå¯»è·¯çš„è·¯å¾„,ä¸»è¦æ˜¯æµ‹è¯•Pathçš„æ–¹æ³•
 // author:sunxvming@163.com
 // date:  2019-11-22
 //====================================
@@ -28,7 +28,7 @@ int testtype = 1;
 static void DrawLines() {
 
 	ifstream infile;
-	infile.open(".//map//map2.txt");  //Êı¾İ¸ñÊ½  [childsize£¬parentlength, parentpoints£¬[0£¬child1length,child1points, [0£¬child2length, child2points]] ] 
+	infile.open(".//map//map2.txt");  //æ•°æ®æ ¼å¼  [childsizeï¼Œparentlength, parentpointsï¼Œ[0ï¼Œchild1length,child1points, [0ï¼Œchild2length, child2points]] ] 
 	if (!infile) {
 		printf(" unable to open myfile");
 		exit(1);
@@ -46,9 +46,9 @@ static void DrawLines() {
 	}
 
 	int totalcount = cont.size();
-	int dvector = 0;		//contµÄÏÂ±ê
-	int intnum = 0;			//ËùÓĞintµÄ¸öÊı
-	int needsubnum = 0;		//ĞèÒª¼õÈ¥µÄint==0µÄ¸öÊı
+	int dvector = 0;		//contçš„ä¸‹æ ‡
+	int intnum = 0;			//æ‰€æœ‰intçš„ä¸ªæ•°
+	int needsubnum = 0;		//éœ€è¦å‡å»çš„int==0çš„ä¸ªæ•°
 	while (totalcount > 0) {
 		int childsize = (int)cont[dvector++];
 		int parentlength = (int)cont[dvector++];
@@ -79,14 +79,14 @@ static void DrawLines() {
 	}
 
 	int charlength = sizeof(double) * (cont.size() - intnum - needsubnum) + sizeof(int) * intnum;
-	char* pos = new char[charlength];    //Êı¾İ¸ñÊ½  [parentlength, parentpoints, childsize, [child1length,child1points, [child2length, child2points]] ] 
-	char* p = pos;	//´æ´¢charµÄ³õÊ¼Î»ÖÃ
-	int vector = 0; //contµÄÎ»ÖÃ
+	char* pos = new char[charlength];    //æ•°æ®æ ¼å¼  [parentlength, parentpoints, childsize, [child1length,child1points, [child2length, child2points]] ] 
+	char* p = pos;	//å­˜å‚¨charçš„åˆå§‹ä½ç½®
+	int vector = 0; //contçš„ä½ç½®
 	while (pos - p < charlength) {
 		int childn = (int)cont[vector++];
 		int size = (int)cont[vector++];
 
-		*(int*)pos = size;  //¶ÔposµÄÖ¸ÕëÖ¸µÄÎ»ÖÃ¸³Öµ
+		*(int*)pos = size;  //å¯¹posçš„æŒ‡é’ˆæŒ‡çš„ä½ç½®èµ‹å€¼
 		pos += sizeof(int);
 
 		for (int i = vector; i < (size * 2 + vector); i++) {
@@ -103,7 +103,7 @@ static void DrawLines() {
 				int childsize = (int)cont[++vector];
 				*(int*)pos = childsize;
 				pos += sizeof(int);
-				for (int j = vector + 1; j < (childsize * 2 + vector + 1); j++) {  //vector+1ÊÇÒòÎªÃ¿¸ö¶à±ßĞÎÖ®¼äÓĞ0×÷Îª·Ö¸î
+				for (int j = vector + 1; j < (childsize * 2 + vector + 1); j++) {  //vector+1æ˜¯å› ä¸ºæ¯ä¸ªå¤šè¾¹å½¢ä¹‹é—´æœ‰0ä½œä¸ºåˆ†å‰²
 					*(double*)pos = cont[j];
 					pos += sizeof(double);
 				}
@@ -143,14 +143,14 @@ static void DrawLines() {
 	for (unsigned i = 0; i < pointsLen; i++)
 	{
 		if (i % 2 == 0) {
-			points2.push_back(timex * (points[i] - minx) );  //Êµ¼Ê×ø±ê×ª»»³ÉÆÁÄ»×ø±ê
+			points2.push_back(timex * (points[i] - minx) );  //å®é™…åæ ‡è½¬æ¢æˆå±å¹•åæ ‡
 		}
 		else {
 			points2.push_back(timey * (points[i] - miny) );
 		}
 
 	}
-	//ÆÁÄ»×ø±ê×ª»»³ÉÊµ¼Ê×ø±ê
+	//å±å¹•åæ ‡è½¬æ¢æˆå®é™…åæ ‡
 	fromx = fromx / timex + minx;
 	fromy = fromy / timey + miny;
 	tox = tox / timex + minx;
@@ -190,9 +190,9 @@ static void DrawLines() {
 
 
 	glEnable(GL_LINE_STIPPLE);
-	glLineWidth(1);//ÉèÖÃÏß¶Î¿í¶È
+	glLineWidth(1);//è®¾ç½®çº¿æ®µå®½åº¦
 	glBegin(GL_LINES);
-	////¸¨ÖúµÄ¸ñ×ÓÏß
+	////è¾…åŠ©çš„æ ¼å­çº¿
 	int grideLen;
 	grideline = path->GetGrideLine(&grideLen);
 	for (unsigned i = 0; i < grideLen; i++) {
@@ -218,9 +218,9 @@ static void DrawLines() {
 	glEnd();
 
 	glEnable(GL_LINE_STIPPLE);
-	glLineWidth(2);//ÉèÖÃÏß¶Î¿í¶È
+	glLineWidth(2);//è®¾ç½®çº¿æ®µå®½åº¦
 	glBegin(GL_LINES);
-	//»­Ô¼Êø±ßºÍÈı½ÇÆÊ·ÖµÄÏß
+	//ç”»çº¦æŸè¾¹å’Œä¸‰è§’å‰–åˆ†çš„çº¿
 	lines = path->GetLines();
 	for (unsigned i = 0; i < lines.size(); i++)
 	{
@@ -230,7 +230,7 @@ static void DrawLines() {
 		glVertex2f((GLfloat)(timex* (line.p2.x - minx)), (GLfloat)(timey* (line.p2.y - miny)));
 	}
 
-	//»­Èı½ÇĞÎ
+	//ç”»ä¸‰è§’å½¢
 	for (unsigned i = 0; i < triaLen; i += 2) {
 		int num1 = triangleline[i];
 		int num2 = triangleline[i + 1];
@@ -248,7 +248,7 @@ static void DrawLines() {
 		//glVertex2f((GLfloat)tline.p2.x, (GLfloat)tline.p2.y);
 	}
 
-	//Ñ°Â·
+	//å¯»è·¯
 	if (findpath.size() > 0) {
 		for (unsigned i = 0; i < findpath.size() - 2; i += 2) {
 			Line line;
@@ -286,13 +286,13 @@ void myDisplay(void)
 	glFlush();
 }
 
-// Êó±êµã»÷µÄ»Øµ÷º¯Êı£¬Ä¿µÄÎª»ñÈ¡ÓÃ»§µÄÊó±êµãÊäÈë£¬²¢×÷ÎªÑ°Â·µÄÆğµãºÍÖÕµãÀ´½øĞĞÑ°Â·
-// param £º
-//	buttonÎªGLUT_LEFT_BUTTON»òGLUT_RIGHT_BUTTON·Ö±ğ±íÊ¾×óÓÒ°´¼ü¡£
-//	stateÎª°´¼üµÄ×´Ì¬£¬ÈôÎª°´ÏÂÔòÎªGLUT_DOWN
+// é¼ æ ‡ç‚¹å‡»çš„å›è°ƒå‡½æ•°ï¼Œç›®çš„ä¸ºè·å–ç”¨æˆ·çš„é¼ æ ‡ç‚¹è¾“å…¥ï¼Œå¹¶ä½œä¸ºå¯»è·¯çš„èµ·ç‚¹å’Œç»ˆç‚¹æ¥è¿›è¡Œå¯»è·¯
+// param ï¼š
+//	buttonä¸ºGLUT_LEFT_BUTTONæˆ–GLUT_RIGHT_BUTTONåˆ†åˆ«è¡¨ç¤ºå·¦å³æŒ‰é”®ã€‚
+//	stateä¸ºæŒ‰é”®çš„çŠ¶æ€ï¼Œè‹¥ä¸ºæŒ‰ä¸‹åˆ™ä¸ºGLUT_DOWN
 void myClick(int button, int state, int x, int y)
 {
-	if (state == 1) //Ì§ÆğÊÇ1
+	if (state == 1) //æŠ¬èµ·æ˜¯1
 	{
 		clicknum += 1;
 		int t = clicknum % 3;
@@ -321,13 +321,13 @@ void changeTest(int i) {
 	testtype = i;
 }
 
-// ÓÒ»÷´´½¨²Ëµ¥£¬ÓÃÓÚ²âÊÔ²»Í¬µÄ·½·¨
+// å³å‡»åˆ›å»ºèœå•ï¼Œç”¨äºæµ‹è¯•ä¸åŒçš„æ–¹æ³•
 void createMenu() {
-	glutCreateMenu(changeTest); //´´½¨²Ëµ¥
-	glutAddMenuEntry("test FindPaths", 1);  //ÔÚ²Ëµ¥ÖĞÌí¼ÓÑ¡Ïî
+	glutCreateMenu(changeTest); //åˆ›å»ºèœå•
+	glutAddMenuEntry("test FindPaths", 1);  //åœ¨èœå•ä¸­æ·»åŠ é€‰é¡¹
 	glutAddMenuEntry("test FindCross", 2);
 	glutAddMenuEntry("test CheckPath", 3);
-	glutAttachMenu(GLUT_RIGHT_BUTTON); //½«²Ëµ¥°ó¶¨Êó±ê²Ù×÷
+	glutAttachMenu(GLUT_RIGHT_BUTTON); //å°†èœå•ç»‘å®šé¼ æ ‡æ“ä½œ
 }
 
 
@@ -338,7 +338,7 @@ int main(int argc, char* argv[])
 	glutInitDisplayMode(GLUT_RGB | GLUT_SINGLE);
 	glutInitWindowPosition(0, 0);
 	glutInitWindowSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-	glutCreateWindow("Ñ°Â·²âÊÔ");
+	glutCreateWindow("å¯»è·¯æµ‹è¯•");
 	gluOrtho2D(0, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
 	createMenu();
 	glutDisplayFunc(myDisplay);

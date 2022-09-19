@@ -1,12 +1,12 @@
 //====================================
-// brief: MathÀà£¬ÊıÑ§¹¤¾ßÀà
+// brief: Mathç±»ï¼Œæ•°å­¦å·¥å…·ç±»
 // author:sunxvming@163.com
 // date:  2019-11-15
 //====================================
 
 #include "Math.h"
 
-//ÇóÁ½ÌõÏß¶ÎµÄ½»µã
+//æ±‚ä¸¤æ¡çº¿æ®µçš„äº¤ç‚¹
 int sgn(double x)
 {
 	return x < -(1e-6) ? -1 : (x > 1e-6);
@@ -40,12 +40,12 @@ bool Math::Meet(Point p1, Point p2, Point p3, Point p4)
 
 Point Math::Inter(Point p1, Point p2, Point p3, Point p4)
 {
-	//Çó¶¨±È·Öµã,Ëã³öÀ´ÓĞ·ûºÅÎÊÌâ£¬ĞĞ²»Í¨
+	//æ±‚å®šæ¯”åˆ†ç‚¹,ç®—å‡ºæ¥æœ‰ç¬¦å·é—®é¢˜ï¼Œè¡Œä¸é€š
 	//double k = fArea(p1, p2, p3) / fArea(p1, p2, p4);
-	//¶¨±È·Ö¹«Ê½
+	//å®šæ¯”åˆ†å…¬å¼
 	//return Point((p3.x + k*p4.x) / (1 + k), (p3.y + k*p4.y) / (1 + k));
 
-	//Á½µãÊ½·½³ÌÇó½»µã
+	//ä¸¤ç‚¹å¼æ–¹ç¨‹æ±‚äº¤ç‚¹
 	double a12 = p1.y - p2.y;
 	double b12 = p2.x - p1.x;
 	double c12 = p1.x * p2.y - p2.x * p1.y;

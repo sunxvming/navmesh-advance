@@ -1,5 +1,5 @@
 //====================================
-// brief: PathÀà£¬¶ÔÍâÌá¹©Ñ°Â·µÄ½Ó¿Ú
+// brief: Pathç±»ï¼Œå¯¹å¤–æä¾›å¯»è·¯çš„æ¥å£
 // author:sunxvming@163.com
 // date:  2019-11-22
 //====================================
@@ -10,11 +10,11 @@ Path::Path()
 {
 }
 
-//¸ù¾İ´æÈë¶à±ßĞÎÊı¾İµÄÖ¸ÕëÊı¾İ´´½¨Path¶ÔÏó
+//æ ¹æ®å­˜å…¥å¤šè¾¹å½¢æ•°æ®çš„æŒ‡é’ˆæ•°æ®åˆ›å»ºPathå¯¹è±¡
 Path::Path(char* cont, int size)
 {
 	int len = 0;
-	while (size > 0)  //Ö§³Ö¶à¸ö¶à±ßĞÎ
+	while (size > 0)  //æ”¯æŒå¤šä¸ªå¤šè¾¹å½¢
 	{
 		polygons.push_back(Polygon::CreateFromShort(cont, &len));
 		cont += len;
@@ -22,7 +22,7 @@ Path::Path(char* cont, int size)
 	}
 }
 
-//°Ñ¾­¹ı´¦ÀíµÄµØÍ¼¶à±ßĞÎĞÅÏ¢ÒÔ¶ş½øÖÆĞÎÊ½±£´æµ½ÎÄ¼şÖĞ
+//æŠŠç»è¿‡å¤„ç†çš„åœ°å›¾å¤šè¾¹å½¢ä¿¡æ¯ä»¥äºŒè¿›åˆ¶å½¢å¼ä¿å­˜åˆ°æ–‡ä»¶ä¸­
 void Path::Save(const char* filename)
 {
 	FILE* file;
@@ -40,7 +40,7 @@ void Path::Save(const char* filename)
 	fclose(file);
 }
 
-//´ÓÎÄ¼şÖĞ¶ÁÈ¡ĞÅÏ¢
+//ä»æ–‡ä»¶ä¸­è¯»å–ä¿¡æ¯
 void Path::Load(const char* filename) {
 	FILE* file;
 	errno_t err;
@@ -133,7 +133,7 @@ void Path::Load(const char* filename) {
 	fclose(file);
 }
 
-//µÃµ½ËùÓĞµãµÄÊı¾İ
+//å¾—åˆ°æ‰€æœ‰ç‚¹çš„æ•°æ®
 const double* Path::GetPoints(int* length) {
 	points.clear();
 
@@ -148,7 +148,7 @@ const double* Path::GetPoints(int* length) {
 	return points.data();
 }
 
-//µÃµ½ËùÓĞ¾­¹ıÈı½ÇÆÊ·ÖµÄ±ßµÄÊı¾İ
+//å¾—åˆ°æ‰€æœ‰ç»è¿‡ä¸‰è§’å‰–åˆ†çš„è¾¹çš„æ•°æ®
 const int* Path::GetIndexs(int* length) {
 	indexs.clear();
 	int vector = 0;
@@ -165,12 +165,12 @@ const int* Path::GetIndexs(int* length) {
 	return indexs.data();
 }
 
-// Ñ°Â·
-// param£º
-// isturn£ºtrueÊ±ÎªÖĞµãÑ°Â·£¬falseÎª¹ÕµãÑ°Â·
-// size£º³ö²Î£¬Ñ°Â·¾­¹ıµÄµãµÄÊıÁ¿
-// return£º
-// Ñ°Â·¾­¹ıµÄµãµÄÎ»ÖÃ×ø±ê
+// å¯»è·¯
+// paramï¼š
+// isturnï¼štrueæ—¶ä¸ºä¸­ç‚¹å¯»è·¯ï¼Œfalseä¸ºæ‹ç‚¹å¯»è·¯
+// sizeï¼šå‡ºå‚ï¼Œå¯»è·¯ç»è¿‡çš„ç‚¹çš„æ•°é‡
+// returnï¼š
+// å¯»è·¯ç»è¿‡çš„ç‚¹çš„ä½ç½®åæ ‡
 const double* Path::FindPaths(Point start, Point end, bool isturn, int* size) {
 	finalpath.clear();
 	int startPIndex = -1;
@@ -213,7 +213,7 @@ const double* Path::FindPaths(Point start, Point end, bool isturn, int* size) {
 }
 
 
-//µÃµ½edgeµÄÏÂÒ»¸öµã
+//å¾—åˆ°edgeçš„ä¸‹ä¸€ä¸ªç‚¹
 int Path::GetNextEposId(int eposId, Polygon p) {
 	int sum = 0;
 	int nextId = 0;
@@ -235,10 +235,10 @@ int Path::GetNextEposId(int eposId, Polygon p) {
 	return nextId;
 }
 
-//Í¨¹ıstartÆğµãºÍface³¯ÏòµãÕÒµ½Óë±ß½çÏà½»µÄµã
+//é€šè¿‡startèµ·ç‚¹å’Œfaceæœå‘ç‚¹æ‰¾åˆ°ä¸è¾¹ç•Œç›¸äº¤çš„ç‚¹
 const double* Path::FindCross(double startx, double starty, double facex, double facey) {
 	cropoint.clear();
-	//Èç¹ûfacexÓëfaceyÍ¬Îª0£¬ÔòºöÂÔ£¬Ö±½Ó·µ»Østartµã
+	//å¦‚æœfacexä¸faceyåŒä¸º0ï¼Œåˆ™å¿½ç•¥ï¼Œç›´æ¥è¿”å›startç‚¹
 	if (facex == 0 && facey == 0) {
 		cropoint.push_back(startx);
 		cropoint.push_back(starty);
@@ -260,7 +260,7 @@ const double* Path::FindCross(double startx, double starty, double facex, double
 	}
 	if (stIndex < 0) return 0;
 
-	//Point vector = Point(facex - startx, facey - starty);		//ÏòÁ¿
+	//Point vector = Point(facex - startx, facey - starty);		//å‘é‡
 	double minx, maxx, miny, maxy;
 	Polygon p = polygons[sIndex];
 	minx = p.grid.minx;
@@ -324,20 +324,20 @@ const double* Path::FindCross(double startx, double starty, double facex, double
 				int nextId = GetNextEposId(eposId, p);
 				Point p1 = p.GetPoint(eposId);
 				Point p2 = p.GetPoint(nextId);
-				//Çó½»µã start->face Óë p1->p2Ö®¼äµÄ½»µã
+				//æ±‚äº¤ç‚¹ start->face ä¸ p1->p2ä¹‹é—´çš„äº¤ç‚¹
 				if (!math.Meet(start, end, p1, p2)) {
 					continue;
 				}
 				intercount++;
 				Point intep = math.Inter(start, end, p1, p2);
-				//Èç¹ûÊÇµÚÒ»´Î½øÀ´£¬ÔòÊ×ÏÈÏÈ¸ølpointºÍlength¸½Öµ
+				//å¦‚æœæ˜¯ç¬¬ä¸€æ¬¡è¿›æ¥ï¼Œåˆ™é¦–å…ˆå…ˆç»™lpointå’Œlengthé™„å€¼
 				if (intercount == 1) {
 					lpoint = intep;
 					length = (intep.x - startx)*(intep.x - startx) + (intep.y - starty)*(intep.y - starty);
 				}
-				//Çóstart->face µ½½»µãµÄ¾àÀë 
+				//æ±‚start->face åˆ°äº¤ç‚¹çš„è·ç¦» 
 				double curLen = (intep.x - startx)*(intep.x - startx) + (intep.y - starty)*(intep.y - starty);
-				//È»ºóÓëlength ×ö±È½Ï£¬Èç¹û¸üĞ¡£¬Ôò¼ÇÂ¼µ±Ç°µÄ½»µã£¬·ñÔò¼ÌĞøÏÂÒ»ÂÖ¡£
+				//ç„¶åä¸length åšæ¯”è¾ƒï¼Œå¦‚æœæ›´å°ï¼Œåˆ™è®°å½•å½“å‰çš„äº¤ç‚¹ï¼Œå¦åˆ™ç»§ç»­ä¸‹ä¸€è½®ã€‚
 				if (curLen < length) {
 					lpoint = intep;
 					length = curLen;
@@ -373,20 +373,20 @@ const double* Path::FindCross(double startx, double starty, double facex, double
 					int nextId = GetNextEposId(eposId, p);
 					Point p1 = p.GetPoint(eposId);
 					Point p2 = p.GetPoint(nextId);
-					//Çó½»µã start->face Óë p1->p2Ö®¼äµÄ½»µã
+					//æ±‚äº¤ç‚¹ start->face ä¸ p1->p2ä¹‹é—´çš„äº¤ç‚¹
 					if (!math.Meet(start, end, p1, p2)) {
 						continue;
 					}
 					intercount++;
 					Point intep = math.Inter(start, end, p1, p2);
-					//Èç¹ûÊÇµÚÒ»´Î½øÀ´£¬ÔòÊ×ÏÈÏÈ¸ølpointºÍlength¸½Öµ
+					//å¦‚æœæ˜¯ç¬¬ä¸€æ¬¡è¿›æ¥ï¼Œåˆ™é¦–å…ˆå…ˆç»™lpointå’Œlengthé™„å€¼
 					if (intercount == 1) {
 						lpoint = intep;
 						length = (intep.x - startx)*(intep.x - startx) + (intep.y - starty)*(intep.y - starty);
 					}
-					//Çóstart->face µ½½»µãµÄ¾àÀë 
+					//æ±‚start->face åˆ°äº¤ç‚¹çš„è·ç¦» 
 					double curLen = (intep.x - startx)*(intep.x - startx) + (intep.y - starty)*(intep.y - starty);
-					//È»ºóÓëlength ×ö±È½Ï£¬Èç¹û¸üĞ¡£¬Ôò¼ÇÂ¼µ±Ç°µÄ½»µã£¬·ñÔò¼ÌĞøÏÂÒ»ÂÖ¡£
+					//ç„¶åä¸length åšæ¯”è¾ƒï¼Œå¦‚æœæ›´å°ï¼Œåˆ™è®°å½•å½“å‰çš„äº¤ç‚¹ï¼Œå¦åˆ™ç»§ç»­ä¸‹ä¸€è½®ã€‚
 					if (curLen < length) {
 						lpoint = intep;
 						length = curLen;
@@ -403,7 +403,7 @@ const double* Path::FindCross(double startx, double starty, double facex, double
 	return cropoint.data();
 }
 
-//·µ»Ø 0 ËµÃ÷Á½µãÖ®¼äÎŞ·¨Ö±´ï£¬·µ»Ø 1 ËµÃ÷¿ÉÒÔÖ±´ï
+//è¿”å› 0 è¯´æ˜ä¸¤ç‚¹ä¹‹é—´æ— æ³•ç›´è¾¾ï¼Œè¿”å› 1 è¯´æ˜å¯ä»¥ç›´è¾¾
 int Path::CheckPath(double startx, double starty, double endx, double endy) {
 	Point start = Point(startx, starty);
 	Point end = Point(endx, endy);
@@ -511,10 +511,10 @@ int Path::CheckPath(double startx, double starty, double endx, double endy) {
 
 		Point p1 = p.GetPoint(eposId);
 		Point p2 = p.GetPoint(nextId);
-		//TODO:Çó½»µã start->face Óë p1->p2Ö®¼äµÄ½»µã
+		//TODO:æ±‚äº¤ç‚¹ start->face ä¸ p1->p2ä¹‹é—´çš„äº¤ç‚¹
 		if (math.Meet(start, end, p1, p2)) {
 			Point intep = math.Inter(start, end, p1, p2);
-			//ÅÅ³ı¹²µã
+			//æ’é™¤å…±ç‚¹
 			if ((intep.x == p1.x && intep.y == p1.y) || (intep.x == p2.x && intep.y == p2.y)
 				|| (intep.x == start.x && intep.y == start.y) || (intep.x == end.x && intep.y == end.y)) {
 				continue;
@@ -528,7 +528,7 @@ int Path::CheckPath(double startx, double starty, double endx, double endy) {
 	return 1;
 }
 
-//·µ»Ø¶à±ßĞÎµÄ¸ñ×ÓµÄÊı¾İ
+//è¿”å›å¤šè¾¹å½¢çš„æ ¼å­çš„æ•°æ®
 vector<double> Path::GetGrideLine(int* length) {
 	grideline.clear();
 	int len = 0;
@@ -568,7 +568,7 @@ vector<double> Path::GetGrideLine(int* length) {
 	return grideline;
 }
 
-//·µ»Ø¾­¹ıÈı½ÇÆÊ·ÖºóµÄËùÓĞÏß¶Î
+//è¿”å›ç»è¿‡ä¸‰è§’å‰–åˆ†åçš„æ‰€æœ‰çº¿æ®µ
 vector<Line> Path::GetLines() {
 	vector<Line> lines;
 	for (int i = 0; i < polygons.size(); i++) {
@@ -578,7 +578,7 @@ vector<Line> Path::GetLines() {
 	return lines;
 }
 
-//¾­¹ıÈı½ÇÆÊ·ÖºóµÄËùÓĞÈı½ÇÊı¾İ
+//ç»è¿‡ä¸‰è§’å‰–åˆ†åçš„æ‰€æœ‰ä¸‰è§’æ•°æ®
 const int* Path::GetTriangleline(int * length)
 {
 	triangleline.clear();
