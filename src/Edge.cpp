@@ -16,7 +16,7 @@ Edge::Edge(int32_t t1, int32_t t2, int32_t p1, int32_t p2)
 	points[1] = p2;
 }
 
-int32_t Edge::IsRestrain(Polygon* p)
+int32_t Edge::IsRestrain(navmesh::Polygon* p)
 {
 	int32_t p1 = points[0];
 	int32_t p2 = points[1];

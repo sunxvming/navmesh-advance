@@ -5,9 +5,10 @@
 //====================================
 
 #include <stdio.h>
-#include <glut.h>
+#include <GL/glut.h>
 #include <iomanip>
 #include <fstream>
+#include <memory>
 #include <string>
 #include <sstream>
 #include "Path.h"
@@ -112,7 +113,7 @@ static void DrawLines() {
 			}
 		}
 	}
-	Path* path = new Path(p, charlength);
+	auto path = make_shared<Path>(p, charlength);
 
 	int pointsLen;
 	int indexLen;
@@ -189,7 +190,6 @@ static void DrawLines() {
 	
 
 
-	glEnable(GL_LINE_STIPPLE);
 	glLineWidth(1);//设置线段宽度
 	glBegin(GL_LINES);
 	////辅助的格子线
@@ -217,7 +217,6 @@ static void DrawLines() {
 	}
 	glEnd();
 
-	glEnable(GL_LINE_STIPPLE);
 	glLineWidth(2);//设置线段宽度
 	glBegin(GL_LINES);
 	//画约束边和三角剖分的线
@@ -274,7 +273,6 @@ static void DrawLines() {
 	}
 	glEnd();
 
-	glDisable(GL_LINE_STIPPLE);
 
 }
 

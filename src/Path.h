@@ -12,11 +12,13 @@
 #include"Math.h"
 
 using namespace std;
-class Polygon;
+namespace navmesh{
+    class Polygon;
+}
 class Path
 {
 public:
-	vector<Polygon> polygons;
+	vector<navmesh::Polygon> polygons;
 	vector<double> points;
 	vector<int > indexs;
 	vector<double> finalpath;
@@ -41,7 +43,7 @@ public:
 	const double* FindPaths(Point start, Point end, bool isturn, int* size);
 	const double* FindCross(double startx, double starty, double facex, double facey);
 	
-	int GetNextEposId(int eposId, Polygon p);
+	int GetNextEposId(int eposId, navmesh::Polygon p);
 	void Save(const char* filename);
 	void Load(const char* filename);
 	int CheckPath(double startx, double starty, double endx, double endy);

@@ -5,6 +5,8 @@
 //====================================
 
 #include "Polygon.h"
+#include <algorithm>
+using navmesh::Polygon;
 
 Polygon::Polygon(double* pos, int32_t size)
 {

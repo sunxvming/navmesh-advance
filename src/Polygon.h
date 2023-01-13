@@ -8,13 +8,14 @@
 #define NAVMESH_POLYGON_H
 
 #include<vector>
+#include <cstdio>
+#include<unordered_map>
+#include <stdint.h>
 #include"Point.h"
 #include"Triangle.h"
 #include"Edge.h"
 #include"Circle.h"
 #include"Math.h"
-#include<unordered_map>
-#include <stdint.h>
 
 
 using namespace std;
@@ -59,6 +60,8 @@ public:
 	float color[3];
 };
 
+namespace navmesh{
+
 class Polygon
 {
 public:
@@ -98,4 +101,5 @@ public:
 	virtual ~Polygon();
 };
 
+}
 #endif // NAVMESH_POLYGON_H

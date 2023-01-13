@@ -7,9 +7,8 @@
 #include "Triangle.h"
 #include"Polygon.h"
 
-Triangle::Triangle(int32_t p1, int32_t p2, int32_t p3):p1(p1),p2(p2),p3(p3)
+Triangle::Triangle(int32_t p1, int32_t p2, int32_t p3):p1(p1),p2(p2),p3(p3),edges{ -1,-1,-1 }
 {
-	memset(edges, -1, 3);
 }
 
 void  circle_center(Point  *center, Point  pt[3], double  *radiu)
@@ -36,7 +35,7 @@ void  circle_center(Point  *center, Point  pt[3], double  *radiu)
 
 #define max( a, b ) ((a)>(b)?(a):(b))
 #define min( a, b ) ((a)>(b)?(b):(a))
-void Triangle::GenExtData(Polygon* p)
+void Triangle::GenExtData(navmesh::Polygon* p)
 {
 	Point pt1 = p->GetPoint(p1);
 	Point pt2 = p->GetPoint(p2);
@@ -59,7 +58,7 @@ void Triangle::GenExtData(Polygon* p)
 	rb.x = maxx, rb.y = maxy;
 }
 
-int32_t Triangle::Contain(Polygon* p, Point pt)
+int32_t Triangle::Contain(navmesh::Polygon* p, Point pt)
 {
 	double x = pt.x, y = pt.y;
 	if(x<lt.x) return 0;

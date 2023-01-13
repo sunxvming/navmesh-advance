@@ -63,6 +63,7 @@ test:
 compile:$(C_OBJS) $(CC_OBJS) $(CPP_OBJS)
 	$(CPP)  $^ -o bin/$(TARGET)  $(LINKFLAGS)  ${LIB_DIRS}
 	cp .\libs\freeglut_mingw\bin\x64\freeglut.dll ./bin/freeglut.dll
+	cp -R ./map ./bin/map
 clean:
 	rm -rf $(OBJ_PATH)
 cleand:

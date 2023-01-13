@@ -16,7 +16,7 @@ Path::Path(char* cont, int size)
 	int len = 0;
 	while (size > 0)  //支持多个多边形
 	{
-		polygons.push_back(Polygon::CreateFromShort(cont, &len));
+		polygons.push_back(navmesh::Polygon::CreateFromShort(cont, &len));
 		cont += len;
 		size -= len;
 	}
@@ -51,7 +51,7 @@ void Path::Load(const char* filename) {
 	size_t len;
 	fread(&len, 1, sizeof(size_t), file);
 	for (int i = 0; i < len; i++) {
-		Polygon polygon;
+		navmesh::Polygon polygon;
 		int pointsLen;
 		fread(&pointsLen, 1, sizeof(int), file);
 		for (int j = 0; j < pointsLen; j++) {
@@ -214,7 +214,7 @@ const double* Path::FindPaths(Point start, Point end, bool isturn, int* size) {
 
 
 //得到edge的下一个点
-int Path::GetNextEposId(int eposId, Polygon p) {
+int Path::GetNextEposId(int eposId, navmesh::Polygon p) {
 	int sum = 0;
 	int nextId = 0;
 	for (int i = 0; i < p.pointsnum.size(); i++)
@@ -262,7 +262,7 @@ const double* Path::FindCross(double startx, double starty, double facex, double
 
 	//Point vector = Point(facex - startx, facey - starty);		//向量
 	double minx, maxx, miny, maxy;
-	Polygon p = polygons[sIndex];
+	navmesh::Polygon p = polygons[sIndex];
 	minx = p.grid.minx;
 	maxx = p.grid.maxx;
 	miny = p.grid.miny;
@@ -429,7 +429,7 @@ int Path::CheckPath(double startx, double starty, double endx, double endy) {
 
 
 	double minx, maxx, miny, maxy;
-	Polygon p = polygons[sIndex];
+	navmesh::Polygon p = polygons[sIndex];
 	minx = p.grid.minx;
 	maxx = p.grid.maxx;
 	miny = p.grid.miny;

@@ -11,7 +11,9 @@
 #include "Point.h"
 #include <stdint.h>
 
-class Polygon;
+namespace navmesh{
+    class Polygon;
+}
 
 class Triangle
 {
@@ -34,8 +36,8 @@ public:
 		this->edges[2] = 0;
 	}
 
-	void GenExtData(Polygon* p);
-	int32_t Contain(Polygon* p, Point pt);
+	void GenExtData(navmesh::Polygon* p);
+	int32_t Contain(navmesh::Polygon* p, Point pt);
 	virtual ~Triangle();
 };
 

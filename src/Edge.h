@@ -9,7 +9,9 @@
 
 #include <stdint.h>
 
-class Polygon;
+namespace navmesh{
+    class Polygon;
+}
 class Edge
 {
 public:
@@ -17,7 +19,7 @@ public:
 	int32_t points[2];
 	Edge() { this->triangles[0] = -1; this->triangles[1] = -1; this->points[0] = -1; this->points[1] = -1; }
 	Edge(int32_t t1, int32_t t2, int32_t p1, int32_t p2);
-	int32_t IsRestrain(Polygon* p);
+	int32_t IsRestrain(navmesh::Polygon* p);
 	virtual ~Edge();
 };
 
