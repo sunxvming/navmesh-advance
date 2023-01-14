@@ -26,10 +26,11 @@ double toy = -1;
 int clicknum = 0;
 int testtype = 1;
 
-static void DrawLines() {
+static void DrawMap() {
+	printf("===========DrawMap=============\n");
 
 	ifstream infile;
-	infile.open(".//map//map2.txt");  //数据格式  [childsize，parentlength, parentpoints，[0，child1length,child1points, [0，child2length, child2points]] ] 
+	infile.open("./map/map2.txt");  //数据格式  [childsize，parentlength, parentpoints，[0，child1length,child1points, [0，child2length, child2points]] ] 
 	if (!infile) {
 		printf(" unable to open myfile");
 		exit(1);
@@ -152,16 +153,17 @@ static void DrawLines() {
 
 	}
 	//屏幕坐标转换成实际坐标
-	fromx = fromx / timex + minx;
-	fromy = fromy / timey + miny;
-	tox = tox / timex + minx;
-	toy = toy / timey + miny;
-	Point from = Point(fromx, fromy);
-	Point to = Point(tox, toy);
+	float fx = fromx / timex + minx;
+	float fy = fromy / timey + miny;
+	float tx = tox / timex + minx;
+	float ty = toy / timey + miny;
+	Point from = Point(fx, fy);
+	Point to = Point(tx, ty);
 
 	const double* findpathdemo;
 	const double* findcross =NULL;
 	if (testtype == 1) {
+		printf("fromx=%f,fromy=%f, tox=%f,toy=%f\n", fromx, fromy, tox, toy);
 		findpathdemo = path->FindPaths(from, to, false, &findpathLen);
 		if (findpathLen > 0) {
 			for (unsigned i = 0; i < findpathLen; i++) {
@@ -174,17 +176,17 @@ static void DrawLines() {
 			}
 		}
 	}
-	else if (testtype == 2) {
-		findcross = path->FindCross(fromx, fromy, tox - fromx, toy - fromy);
-		findpath.push_back(timex*(fromx-minx));
-		findpath.push_back(timey*(fromy-miny));
-		if (findcross) {
+	else if (testtype == 2 && clicknum % 3 == 2) {
+		findcross = path->FindCross(fx, fy, tx - fx, ty - fy);
+		findpath.push_back(timex*(fx - minx));
+		findpath.push_back(timey*(fy - miny));
+		if (findcross && clicknum ) {
 			findpath.push_back(timex*(findcross[0]-minx));
 			findpath.push_back(timey*(findcross[1]-miny));
 		}
 	}
 	else if (testtype == 3 && clicknum % 3 == 2) {
-		int canto = path->CheckPath(fromx,fromy,tox,toy);
+		int canto = path->CheckPath(fx,fy,tx,ty);
 		printf("CheckPath----------%d\n",canto);
 	}
 	
@@ -278,9 +280,9 @@ static void DrawLines() {
 
 void myDisplay(void)
 {
-	glClearColor(1.0, 1.0, 1.0, 1.0);
+	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
-	DrawLines();
+	DrawMap();
 	glFlush();
 }
 
@@ -310,8 +312,9 @@ void myClick(int button, int state, int x, int y)
 			toy = y;
 		}
 		printf("clicknum=%d,t=%d, x=%d,y=%d\n", clicknum, t, x, y);
-		if(t==2||t==0)
-			myDisplay();
+		
+		//if(t==2||t==0)
+			//myDisplay();
 	}
 }
 
@@ -334,9 +337,9 @@ int main(int argc, char* argv[])
 {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGB | GLUT_SINGLE);
-	glutInitWindowPosition(0, 0);
+	glutInitWindowPosition(30, 30);
 	glutInitWindowSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-	glutCreateWindow("寻路测试");
+	glutCreateWindow("navmesh test");
 	gluOrtho2D(0, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
 	createMenu();
 	glutDisplayFunc(myDisplay);

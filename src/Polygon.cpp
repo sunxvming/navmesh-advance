@@ -155,7 +155,7 @@ int32_t Polygon::FindDT(Grid* grid, int32_t p1, int32_t p2)
 						Point point = GetPoint(p);
 						if (p1 != p && p2 != p && isclockwise(point2 - point1, point - point1))  // p 要在p1p2的左侧
 						{
-							bool flag = JudgeIsVisible(p1, p) && JudgeIsVisible(p2, p);
+							bool flag = JudgeIsVisible(p1, p, grid) && JudgeIsVisible(p2, p, grid);
 							if (flag) {
 								double angle = Angle(point, point1, point2);
 								if (p3 == -1 || angle < angle3)
@@ -233,26 +233,16 @@ bool Polygon::IsIntersect(int32_t edgepos, int32_t pa1, int32_t p1) {
 }
 
 //false代表pa 与p不可见，true代表可见
-bool Polygon::JudgeIsVisible(int pindex1, int pindex2) {
+bool Polygon::JudgeIsVisible(int pindex1, int pindex2, Grid* grid) {
 	Point p1 = GetPoint(pindex1);
 	Point p2 = GetPoint(pindex2);
 	//检查最大最小值合法性
 	Point p0 = points[0];
-	double minx = p0.x, miny = p0.y, maxx = p0.x, maxy = p0.y;
-	for (auto it = points.cbegin() + 1; it != points.cend(); it++)
-	{
-		double x = it->x;
-		double y = it->y;
-		if (x < minx) minx = x;
-		if (x > maxx)maxx = x;
-		if (y < miny) miny = y;
-		if (y > maxy)maxy = y;
-	}
-
-	double dx = maxx - minx, dy = maxy - miny;
-	int gride = (int)sqrt(dx * dy / (points.size()));
-	int xnum = (int)ceil(dx / gride);
-	int ynum = (int)ceil(dy / gride);
+	double minx = grid->minx;
+	double miny = grid->miny;
+	int gride = grid->gride;
+	int xnum = grid->xnum;
+	int ynum = grid->ynum;
 
 	if (p1.x > p2.x) {
 		Point demo = p2;

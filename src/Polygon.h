@@ -81,7 +81,7 @@ private:
 public:
 	Point GetPoint(int32_t p);
 	bool IsIntersect(int32_t edgepos, int32_t pa1, int32_t p1);
-	bool JudgeIsVisible(int32_t pa1, int32_t p1);
+	bool JudgeIsVisible(int32_t pa1, int32_t p1, Grid* grid);
 
 	static Polygon CreateFromShort(char* cont, int32_t*len);
 	//static Polygon CreateFromShort2(char* cont, int32_t*len);
