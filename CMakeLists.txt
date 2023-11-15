@@ -36,3 +36,14 @@ file(COPY ${GLUT_DIR}/bin/freeglut.dll
     DESTINATION ${EXECUTABLE_OUTPUT_PATH}/Release)
 file(COPY ${GLUT_DIR}/bin/freeglut.dll
     DESTINATION ${EXECUTABLE_OUTPUT_PATH}/Debug)    
+
+# 复制地图文件到执行目录
+file(COPY map
+    DESTINATION ${EXECUTABLE_OUTPUT_PATH}/Release)
+file(COPY map
+    DESTINATION ${EXECUTABLE_OUTPUT_PATH}/Debug)  
+
+# 工作目录也复制一份，方便调试
+file(COPY map
+    DESTINATION ${ROOT_DIR}/build)
+
