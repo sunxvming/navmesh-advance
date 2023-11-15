@@ -30,7 +30,7 @@ static void DrawMap() {
 	printf("===========DrawMap=============\n");
 
 	ifstream infile;
-	infile.open("./map/map2.txt");  //数据格式  [childsize，parentlength, parentpoints，[0，child1length,child1points, [0，child2length, child2points]] ] 
+	infile.open("./map/map.txt");  //数据格式  [childsize，parentlength, parentpoints，[0，child1length,child1points, [0，child2length, child2points]] ] 
 	if (!infile) {
 		printf(" unable to open myfile");
 		exit(1);
