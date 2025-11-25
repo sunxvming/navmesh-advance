@@ -34,11 +34,11 @@
 绿色的线表示经三角剖分后构成的线
 蓝色的线代表寻路的路径
 * 包含两个嵌套多边形的地图
-![](http://www.sunxvming.com/imgs/微信截图_20191202105843.png)
+![](https://github.com/sunxvming/navmesh-advance/blob/master/img/微信截图_20191202105843.png)
 * 根据场景资源生成的地图
-![](http://www.sunxvming.com/imgs/微信截图_20191202104737.png)
-![](http://www.sunxvming.com/imgs/微信截图_20191202105547.png)
-![](http://www.sunxvming.com/imgs/微信截图_20191202105652.png)
+![](https://github.com/sunxvming/navmesh-advance/blob/master/img/微信截图_20191202104737.png)
+![](https://github.com/sunxvming/navmesh-advance/blob/master/img/微信截图_20191202105547.png)
+![](https://github.com/sunxvming/navmesh-advance/blob/master/img/微信截图_20191202105652.png)
 
 ## 主要算法
 这些都可以在网上查的到，在俺的小demo中应该也很容易找的到的
